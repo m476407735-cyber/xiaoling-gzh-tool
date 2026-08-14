@@ -75,8 +75,17 @@ npm run dev
 
 ## 当前部署边界
 
-`server.mjs` 目前是本地 Node 服务，默认仅监听 `127.0.0.1`。将来部署到公网时，需要把 `/api/rewrite` 和 `/api/test-connection` 迁移为可部署的服务端函数或 Worker；仅使用 GitHub Pages 不能完整运行 AI 改写能力。
+`server.mjs` 是本地 Node 服务，默认仅监听 `127.0.0.1`。仓库同时提供 Cloudflare Pages Functions，因此部署到 Cloudflare Pages 时会自动处理 `/api/rewrite`、`/api/test-connection` 和 `/api/highlight-article`，不需要把用户的 API Key 写入 Cloudflare 环境变量。
+
+## 部署到 Cloudflare Pages
+
+1. 登录 Cloudflare，进入 **Workers & Pages**，选择创建应用并导入 GitHub 仓库。
+2. 选择仓库 `m476407735-cyber/xiaoling-gzh-tool`，生产分支选择 `main`。
+3. 框架预设选择 `None`；构建命令留空；构建输出目录填写 `public`。
+4. 点击部署。首次部署完成后，Cloudflare 会提供一个 `pages.dev` 公网地址。
+
+部署后的用户仍需在自己的浏览器中填写 API Key。密钥只会随本次请求转发到用户所选的模型服务商，Cloudflare 不会持久保存它。
 
 ## 许可证
 
-在公开发布前，请根据你的开源计划补充 `LICENSE` 文件。
+本项目使用 [MIT License](./LICENSE)，允许他人免费使用、修改和分发，同时保留许可证与版权声明。
