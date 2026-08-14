@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>公众号文章工作台</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="公众号文章首页"><span class="brand-mark" id="brandMark">公</span><span><strong id="brandName">公众号文章</strong><small id="brandTagline">一键排版·复制</small></span></a>
+      <div class="topbar-actions">
+        <span class="save-state" id="saveState">已自动保存</span>
+        <button class="icon-button" id="historyButton" type="button" aria-label="历史记录" title="历史记录">历史</button>
+        <button class="icon-button" id="appearanceButton" type="button" aria-label="皮肤与个人 IP" title="皮肤与个人 IP">皮肤</button>
+        <button class="icon-button" id="settingsButton" type="button" aria-label="模型设置" title="模型设置">设置</button>
+        <button class="button primary" id="copyButton" type="button">复制到公众号</button>
+      </div>
+    </header>
+
+    <main id="top" class="workspace">
+      <aside class="rail" aria-label="工作步骤">
+        <button class="identity-card" id="identityCard" type="button" aria-label="编辑个人 IP 资料">
+          <span class="identity-avatar" id="identityAvatar">公</span>
+          <span><strong id="identityName">公众号文章</strong><small id="identityLine">一键排版·复制</small></span>
+        </button>
+        <div class="rail-title">本次流程</div>
+        <a href="#source"><span>01</span>输入口播稿</a>
+        <a href="#article"><span>02</span>编辑文章</a>
+        <a href="#images"><span>03</span>上传插图</a>
+        <a href="#preview"><span>04</span>复制发布</a>
+        <div class="rail-note"><span id="railThemeName">石墨极简</span><br />适配公众号正文</div>
+      </aside>
+
+      <section class="composer">
+        <div class="section-heading" id="source"><span>01</span><div><h1>从口播稿到公众号文章</h1><p>保留你的观点，去掉口播冗余，生成可直接复制的公众号排版。</p></div></div>
+
+        <section class="fields intro-fields">
+          <label><span>文章标题</span><input id="titleInput" type="text" placeholder="可留空，由 AI 拟定" /></label>
+          <label><span>作者名（可选）</span><input id="authorInput" type="text" placeholder="你的昵称" /></label>
+          <label><span>作者简介（可选）</span><input id="bioInput" type="text" placeholder="可选填写" /></label>
+        </section>
+
+        <label class="source-field"><span>口播稿</span><textarea id="sourceInput" spellcheck="false" placeholder="把口播视频稿粘贴到这里。可以保留你的原始段落和要点，AI 会把它整理成适合公众号阅读的文章。"></textarea></label>
+
+        <div class="source-actions">
+          <div class="source-utility-actions"><button class="button quiet" id="sampleButton" type="button">加载示例</button><button class="button quiet" id="historyButtonInline" type="button">历史记录</button></div>
+          <div class="source-actions-right"><button class="button quiet secondary-action" id="formatButton" type="button" title="仅在不需要改写时使用">仅排版（不改写）</button><button class="button primary" id="generateButton" type="button">AI 改写后排版</button></div>
+        </div>
+        <p class="helper">默认使用“AI 改写后排版”：先把口播稿改成公众号长文，再套用所选版式。只有需要保留原稿原句时，才使用“仅排版（不改写）”。</p>
+        <p class="generation-state" id="generationState" aria-live="polite">当前未生成公众号文章</p>
+
+        <section class="theme-picker" aria-labelledby="themeTitle">
+          <div class="theme-heading"><div><span class="eyebrow">GZH-DESIGN THEMES</span><h2 id="themeTitle">选择排版风格</h2></div><p id="themeDescription">石墨极简：克制的灰阶编辑风，适合科技、方法论与专业观点。</p></div>
+          <div class="theme-grid" id="themeGrid">
+            <button class="theme-card selected" type="button" data-theme="graphite" aria-pressed="true"><span class="theme-swatch graphite"></span><strong>石墨极简</strong><small>科技 · 观点</small></button>
+            <button class="theme-card" type="button" data-theme="moyuGreen" aria-pressed="false"><span class="theme-swatch green"></span><strong>摸鱼绿</strong><small>教程 · 工具</small></button>
+            <button class="theme-card" type="button" data-theme="redWhite" aria-pressed="false"><span class="theme-swatch red"></span><strong>红白色系</strong><small>观点 · 分析</small></button>
+            <button class="theme-card" type="button" data-theme="zen" aria-pressed="false"><span class="theme-swatch zen"></span><strong>留白禅意</strong><small>随笔 · 生活</small></button>
+            <button class="theme-card" type="button" data-theme="moyuTicket" aria-pressed="false"><span class="theme-swatch ticket"></span><strong>摸鱼票据</strong><small>测评 · 对比</small></button>
+            <button class="theme-card" type="button" data-theme="olive" aria-pressed="false"><span class="theme-swatch olive"></span><strong>橄榄手记</strong><small>复盘 · 内刊</small></button>
+          </div>
+        </section>
+
+        <section class="format-controls" aria-labelledby="formatControlsTitle">
+          <div class="format-controls-heading">
+            <div><span class="eyebrow">ARTICLE CONTROLS</span><h2 id="formatControlsTitle">排版控制</h2></div>
+            <p>控制文章的基础节奏，重点标记仍由你逐处决定。</p>
+          </div>
+          <div class="control-grid">
+            <fieldset class="control-group"><legend>标题字形</legend><div class="segmented" id="titleFontControl"><button type="button" data-title-font="sans" aria-pressed="true">无衬线</button><button type="button" data-title-font="serif" aria-pressed="false">有衬线</button><button type="button" data-title-font="mono" aria-pressed="false">等宽</button></div></fieldset>
+            <fieldset class="control-group"><legend>正文大小</legend><div class="segmented" id="bodySizeControl"><button type="button" data-body-size="small" aria-pressed="false">更小</button><button type="button" data-body-size="recommended" aria-pressed="true">推荐</button><button type="button" data-body-size="large" aria-pressed="false">稍大</button></div></fieldset>
+          </div>
+          <p class="control-note">快捷键：选中正文后可用 <strong>⌘/Ctrl + B</strong> 加粗；使用下划线和黄色高亮前，都可以先在右侧预览确认。</p>
+        </section>
+
+        <div class="section-heading compact" id="article"><span>02</span><div><h2>文章正文</h2><p>可直接修改，修改后点击“应用到排版”。</p></div></div>
+        <div class="editor-toolbar" role="toolbar" aria-label="正文样式工具"><span class="toolbar-label">选中文字后标记</span><button class="tool-button" id="boldTool" type="button" title="加粗（⌘/Ctrl + B）">B</button><button class="tool-button underline-tool" id="underlineTool" type="button" title="下划线重点">U</button><button class="tool-button highlight-tool" id="highlightTool" type="button" title="黄色高亮">黄</button><button class="tool-button" id="clearMarkTool" type="button" title="清除标记">清除</button></div>
+        <textarea id="markdownInput" class="markdown-editor" spellcheck="false" placeholder="# 公众号文章标题\n\n在这里编辑生成后的 Markdown 正文。"></textarea>
+        <div class="editor-actions"><span id="articleStats">0 字 · 图片可直接粘贴</span><div><button class="button quiet" id="downloadMarkdown" type="button">下载 Markdown</button><button class="button dark" id="applyButton" type="button">应用到排版</button></div></div>
+
+        <div class="section-heading compact" id="images"><span>03</span><div><h2>文章插图</h2><p>预览会保留全部图片位；上传图片和复制图片说明都可以单独决定。</p></div></div>
+        <div id="imagePasteTarget" class="image-paste-target" tabindex="0" role="button" aria-label="粘贴或拖入图片到文章"><span class="paste-icon">＋</span><div><strong>在正文光标处粘贴图片</strong><span>截图后按 ⌘/Ctrl + V，也可以把图片拖到这里</span></div></div>
+        <div id="imageSlots" class="image-slots"><div class="empty-inline">生成文章后，这里会出现对应的插图位置。</div></div>
+      </section>
+
+      <section class="preview-pane" id="preview" aria-label="公众号预览">
+        <div class="preview-top"><div><span class="eyebrow">WECHAT PREVIEW</span><h2>排版预览</h2></div><span id="validationState" class="validation">等待内容</span></div>
+        <div class="wechat-shell"><div class="wechat-status"><span>公众号正文</span><span id="previewThemeName">石墨极简</span></div><iframe id="articlePreview" title="公众号文章预览" sandbox="allow-same-origin"></iframe></div>
+        <div class="preview-actions"><button class="button quiet" id="downloadHtml" type="button">下载公众号 HTML</button><button class="button dark" id="copyButtonSecondary" type="button">复制到公众号</button></div>
+        <p class="preview-note">预览会保留全部图片位，复制时只带已上传的图片；图片说明是否复制由下方设置决定。</p>
+      </section>
+    </main>
+
+    <dialog id="settingsDialog">
+      <form method="dialog" class="settings-panel">
+        <div class="dialog-heading"><div><span class="eyebrow">MODEL CONNECTION</span><h2>模型设置</h2></div><button class="icon-button" value="cancel" aria-label="关闭设置" title="关闭">关闭</button></div>
+        <p>选择预设后会自动填入接口地址。也支持粘贴 API 根地址或完整的 <code>/chat/completions</code> 地址。你可以选择只在本次会话使用，或保存在当前设备的浏览器中。</p>
+        <label><span>服务商预设</span><select id="providerInput"><option value="openai">OpenAI API</option><option value="dadaapi">哒哒 API（推荐）</option><option value="custom">自定义兼容 API</option></select></label>
+        <label><span>接口地址</span><input id="endpointInput" type="url" value="https://api.openai.com/v1" placeholder="https://dadaapi.com/v1" /></label>
+        <label><span>模型名</span><input id="modelInput" type="text" value="gpt-4.1-mini" /></label>
+        <label><span>API Key</span><input id="keyInput" type="password" autocomplete="off" placeholder="粘贴你的 API Key" /></label>
+        <label class="setting-toggle"><input id="rememberSettingsInput" type="checkbox" checked /><span>记住模型设置与密钥</span><small>仅保存在这台设备的当前浏览器中</small></label>
+        <p id="connectionHint" class="connection-hint">哒哒 API 使用：接口地址 <code>https://dadaapi.com/v1</code>，鉴权方式为 Bearer API Key。</p>
+        <p id="connectionResult" class="connection-result" role="status" hidden></p>
+        <div class="dialog-actions"><button class="button quiet" type="button" id="clearSettings">删除已存密钥</button><button class="button quiet" value="cancel">取消</button><button class="button quiet" type="button" id="testConnection">测试连接</button><button class="button primary" id="saveSettings" value="default">保存设置</button></div>
+      </form>
+    </dialog>
+    <dialog id="historyDialog">
+      <form method="dialog" class="history-panel">
+        <div class="dialog-heading"><div><span class="eyebrow">ARTICLE HISTORY</span><h2>历史记录</h2></div><button class="icon-button" value="cancel" aria-label="关闭历史记录" title="关闭">关闭</button></div>
+        <p class="history-intro">每次生成会保留一个文章快照。恢复后可继续编辑；图片需按当前文章重新上传。</p>
+        <div class="history-actions"><button class="button quiet" id="saveCurrentHistory" type="button">保存当前版本</button><button class="button quiet danger-button" id="clearHistory" type="button">清空全部</button></div>
+        <div class="history-list" id="historyList"></div>
+      </form>
+    </dialog>
+    <dialog id="appearanceDialog">
+      <form method="dialog" class="appearance-panel">
+        <div class="dialog-heading"><div><span class="eyebrow">YOUR CREATOR DESK</span><h2>皮肤与个人 IP</h2></div><button class="icon-button" value="cancel" aria-label="关闭皮肤设置" title="关闭">关闭</button></div>
+        <div class="appearance-section"><span class="field-label">工作台皮肤</span><div class="skin-grid" id="skinGrid">
+          <button class="skin-card selected" type="button" data-skin="graphite" aria-pressed="true"><span class="skin-preview graphite-skin"><i></i><b></b></span><strong>石墨编辑</strong><small>克制、专注、理性</small></button>
+          <button class="skin-card" type="button" data-skin="mint" aria-pressed="false"><span class="skin-preview mint-skin"><i></i><b></b></span><strong>薄荷笔记</strong><small>轻盈、清新、灵感</small></button>
+          <button class="skin-card" type="button" data-skin="atelier" aria-pressed="false"><span class="skin-preview atelier-skin"><i></i><b></b></span><strong>暮色工作室</strong><small>沉稳、专业、深度</small></button>
+        </div></div>
+        <div class="appearance-section ip-fields"><label><span>工作台名称</span><input id="studioNameInput" type="text" maxlength="18" placeholder="例如：小义的创作台" /></label><label><span>一句话定位</span><input id="studioTaglineInput" type="text" maxlength="28" placeholder="例如：AI 内容创作实验室" /></label></div>
+        <label class="avatar-upload"><span>个人 IP 图标</span><input id="studioAvatarInput" type="file" accept="image/png,image/jpeg,image/webp" /><small>不上传则使用名称首字。建议使用方形图片。</small></label>
+        <div class="ip-preview"><span class="identity-avatar" id="dialogAvatar">公</span><div><strong id="dialogName">公众号文章</strong><span id="dialogTagline">一键排版·复制</span></div></div>
+        <div class="dialog-actions"><button class="button quiet" value="cancel">取消</button><button class="button primary" id="saveAppearance" value="default">保存外观</button></div>
+      </form>
+    </dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+# Dependencies and package-manager output
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+
+# OS and editor files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local user content: drafts, history, exports, pasted assets and avatars
+local-data/
+history/
+uploads/
+output/
+article-drafts/
+*.local.md
+*.private.md
+*.history.json
+*.local.json
+
+# Deployment and test artifacts
+coverage/
+dist/
+build/
+.vercel/
+.wrangler/
+dev.vars
